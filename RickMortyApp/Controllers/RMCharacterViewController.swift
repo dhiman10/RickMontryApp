@@ -5,7 +5,6 @@
 //  Created by Dhiman Das on 17/2/23.
 //
 
-import Foundation
 import UIKit
 
 /// Controller to show and search for Characters
@@ -16,7 +15,9 @@ final class RMCharacterViewController : UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.green
+        
+        let request = RMRequest(endPoint: .character)
+        print(request.url)
+
     }
-
-
 }
