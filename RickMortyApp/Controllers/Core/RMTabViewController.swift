@@ -25,7 +25,7 @@ final class RMTabViewController: UITabBarController {
         let episodeVC = RMEpisodViewController()
         let settingsVC = RMSettingsViewController()
         
-        characterVC.title = "Home"
+        characterVC.title = "Characters"
         locationVC.title = "Explore"
         episodeVC.title = "Notificatios"
         settingsVC.title = "Profile"
