@@ -76,6 +76,7 @@ final class RMRequest {
         self.queryParameters = queryParameters
     }
     
+    /// Attempt to create request
     convenience init?(url : URL) {
     
        // character?page=2
@@ -90,8 +91,13 @@ final class RMRequest {
             let components = trimmed.components(separatedBy: "/")
             if !components.isEmpty {
                 let endPointString = components[0]
+                var pathComponents :[String] = []
+                if components.count > 1 {
+                    pathComponents = components
+                    pathComponents.removeFirst()
+                }
                 if let rmEndPoint = RMendpoint(rawValue: endPointString) {
-                    self.init(endPoint: rmEndPoint)
+                    self.init(endPoint: rmEndPoint, pathComponents: pathComponents)
                     return
                 }
             }
