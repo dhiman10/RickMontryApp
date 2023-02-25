@@ -7,7 +7,7 @@
 
 import Foundation
 /// Represt unique API endPoint
-@frozen enum RMendpoint : String {
+@frozen enum RMendpoint : String, Hashable, CaseIterable {
     /// End point to character info
     case character
     

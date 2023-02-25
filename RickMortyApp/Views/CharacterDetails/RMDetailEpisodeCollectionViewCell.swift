@@ -1,5 +1,5 @@
 //
-//  RMDetailEpisodeCollectionViewCell.swift
+//  RMEpisodeCollectionViewCell.swift
 //  RickMortyApp
 //
 //  Created by Dhiman Das on 19/2/23.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class RMDetailEpisodeCollectionViewCell: UICollectionViewCell {
+class RMEpisodeCollectionViewCell: UICollectionViewCell {
     
-    static let cellIdentifier = "RMDetailEpisodeCollectionViewCell"
+    static let cellIdentifier = "RMEpisodeCollectionViewCell"
     
     private let seasonLabel : UILabel = {
         let label = UILabel()
@@ -37,14 +37,17 @@ class RMDetailEpisodeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .tertiarySystemBackground
-        contentView.layer.cornerRadius = 8
-        contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor.systemBlue.cgColor
+        setUplayer()
         contentView.addSubviews(seasonLabel,nameLabel,airDateLabel)
         setUpContraint()
     }
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    private func setUplayer() {
+        contentView.layer.cornerRadius = 8
+        contentView.layer.borderWidth = 2
     }
     
     private func setUpContraint() {
@@ -86,6 +89,8 @@ class RMDetailEpisodeCollectionViewCell: UICollectionViewCell {
             
         }
         viewModel.fetchEpisode()
+        contentView.layer.borderColor = viewModel.borderColor.cgColor
+
     }
 
 }

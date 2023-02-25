@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RMEpisodeDataRender {
     
@@ -15,12 +16,13 @@ protocol RMEpisodeDataRender {
 
 }
 
-final class RMEpisodeCellViewModel {
-    
+final class RMEpisodeCellViewModel: Hashable, Equatable {
+
     private let episodeDataUrl : URL?
-    
     private var isFetching = false
     private var dataBlock : ((RMEpisodeDataRender)->Void)?
+    
+    public let borderColor : UIColor
     
     private var episode : RMEpisode? {
         didSet {
@@ -32,15 +34,15 @@ final class RMEpisodeCellViewModel {
     }
     
     //MARK: - Init
-    init(episodeDataUrl : URL?){
+    init(episodeDataUrl : URL?, borderColor: UIColor = .systemBlue){
         self.episodeDataUrl = episodeDataUrl
+        self.borderColor = borderColor
     }
     
     //MARK: - public
     
     public func registerForData(_ block : @escaping (RMEpisodeDataRender) ->Void){
         
-        //print(block)
         self.dataBlock = block
     }
 
@@ -59,12 +61,12 @@ final class RMEpisodeCellViewModel {
         isFetching = true
         
         RMService.shared.excute(request, expecting: RMEpisode.self) {
-            result in
+          [weak self]  result in
             
             switch result {
             case .success(let model):
                 DispatchQueue.main.sync {
-                    self.episode = model
+                    self?.episode = model
                 }
             case .failure(let failure):
                 print(String(describing: failure))
@@ -72,5 +74,13 @@ final class RMEpisodeCellViewModel {
             }
         }
         
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.episodeDataUrl?.absoluteString ?? "")
+    }
+    
+    static func == (lhs: RMEpisodeCellViewModel, rhs: RMEpisodeCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
     }
 }

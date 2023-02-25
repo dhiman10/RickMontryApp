@@ -100,11 +100,10 @@ extension RMCharacterDetailViewController : UICollectionViewDelegate , UICollect
             return cell
         case .episodes(let viewModels):
 
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMDetailEpisodeCollectionViewCell.cellIdentifier, for: indexPath) as? RMDetailEpisodeCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMEpisodeCollectionViewCell.cellIdentifier, for: indexPath) as? RMEpisodeCollectionViewCell else {
                 fatalError()
             }
             cell.confiqure(with: viewModels[indexPath.row])
-            //cell.backgroundColor = .green
             return cell
         }
         
@@ -112,10 +111,8 @@ extension RMCharacterDetailViewController : UICollectionViewDelegate , UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("didSelectItemAt")
         
         let sectionType = viewModel.sections[indexPath.section]
-        print(viewModel.episodes.count)
         
         switch sectionType {
         case .photo ,.information :
